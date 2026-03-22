@@ -447,6 +447,22 @@ section{position:relative;z-index:1}
 .pc-fl{background:var(--cyan);color:#000;box-shadow:0 4px 20px rgba(34,211,238,.2)}
 .pc-fl:hover{background:#38e8ff;transform:translateY(-1px);box-shadow:0 8px 28px rgba(34,211,238,.3)}
 @media(max-width:900px){.price-grid{grid-template-columns:1fr}.pc.feat{transform:none}}
+/* SOVEREIGN FOR ALL */
+.people-sec{background:linear-gradient(180deg,var(--bg) 0%,rgba(34,211,238,.02) 50%,var(--bg) 100%);border-top:1px solid var(--border2)}
+.people-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
+.people-card{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:24px;text-align:center;transition:all .3s}
+.people-card:hover{border-color:rgba(34,211,238,.3);transform:translateY(-3px);box-shadow:0 12px 30px rgba(34,211,238,.07)}
+.people-icon{font-size:36px;margin-bottom:10px}
+.people-label{font-family:var(--fd);font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px}
+.people-sub{font-family:var(--fm);font-size:10px;color:var(--cyan);letter-spacing:.5px;margin-bottom:12px;text-transform:uppercase}
+.people-card p{font-size:12px;color:var(--dim);line-height:1.7;margin:0}
+.people-what{margin-top:52px;padding:36px;background:var(--card);border:1px solid var(--border2);border-radius:16px}
+.people-what-h{font-family:var(--fd);font-size:18px;font-weight:700;color:var(--text);margin-bottom:22px;text-align:center;letter-spacing:-.5px}
+.people-features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.pf{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--dim);padding:10px 14px;background:rgba(34,211,238,.04);border:1px solid rgba(34,211,238,.1);border-radius:8px}
+.pf span{line-height:1.4}
+@media(max-width:900px){.people-grid{grid-template-columns:repeat(2,1fr)}.people-features{grid-template-columns:1fr}}
+@media(max-width:600px){.people-grid{grid-template-columns:1fr}}
 
 /* CTA */
 .cta-sec{background:var(--bg2);border-top:1px solid rgba(34,211,238,.1)}
@@ -504,7 +520,6 @@ footer{background:var(--bg);border-top:1px solid var(--border2);position:relativ
   <div class="nav-links">
     <a href="#capabilities">Capabilities</a>
     <a href="#technology">Technology</a>
-    <a href="#portfolio">Portfolio</a>
     <a href="#pricing">Pricing</a>
     <a href="#contact" class="nav-cta">Book a Call</a>
   </div>
@@ -805,13 +820,11 @@ footer{background:var(--bg);border-top:1px solid var(--border2);position:relativ
   </div>
 </section>
 
-<!-- PORTFOLIO -->
-<section class="port-sec" id="portfolio">
+<!-- PORTFOLIO (anchor only — share direct links with prospects) -->
+<div id="portfolio" style="padding:48px 0 0">
   <div class="si">
-    <div class="eye rev">Our Work</div>
-    <h2 class="sec-t rev">Sites We've Built.<br>All Live.</h2>
-    <p class="sec-d rev rd1">Every client gets a production-ready site hosted on the GMTek preview network — fully deployed and indexed.</p>
-    <div class="port-grid rev rd2">
+    <p style="font-family:var(--fm);font-size:11px;color:var(--muted);text-align:center;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px">Client Previews</p>
+    <div class="port-grid" style="margin:0">
       <a href="https://jangaard.preview.gmtek.ai" target="_blank" class="port-card">
         <div class="port-preview">🏥</div>
         <div class="port-info">
@@ -846,63 +859,61 @@ footer{background:var(--bg);border-top:1px solid var(--border2);position:relativ
       </a>
     </div>
   </div>
-</section>
+</div>
 
 <!-- PRICING -->
 <section class="price-sec" id="pricing">
   <div class="si">
-    <div class="eye rev">Infrastructure Investment</div>
-    <h2 class="sec-t rev">Start With<br>The Right Hardware.</h2>
-    <p class="sec-d rev rd1">Your AI stack runs on your infrastructure — so the first decision is choosing the right machine. Pick your tier. We configure everything. Total architecture cost comes in your custom proposal.</p>
+    <div class="eye rev">Get Your Proposal</div>
+    <h2 class="sec-t rev">Every Build<br>Is Custom.</h2>
+    <p class="sec-d rev rd1">No two architectures are the same. We assess your hardware, map your workflow, and send you a complete proposal within 24 hours. Whether it's a single-location service business or a multi-site operation — the price fits the build, the build fits you.</p>
     <div class="price-grid rev rd2">
       <div class="pc">
-        <div class="pc-n">Starter</div><div class="pc-sub">CPU-ONLY · NO GPU REQUIRED</div>
-        <div class="pc-from">Hardware Budget</div><div class="pc-num"><sup>~$</sup>800</div>
-        <div class="pc-note">Your hardware cost estimate</div><div class="pc-div"></div>
+        <div class="pc-n">Local Business</div><div class="pc-sub">SERVICE · RETAIL · TRADES · CLINIC</div>
+        <div class="pc-div" style="margin-top:22px"></div>
         <ul class="pc-feats">
-          <li><span class="pck">✓</span>Modern i5/i7, 32GB RAM, SSD</li>
-          <li><span class="pck">✓</span>llama.cpp CPU inference</li>
-          <li><span class="pck">✓</span>7B parameter models (Q4)</li>
-          <li><span class="pck">✓</span>n8n automation on same machine</li>
-          <li><span class="pck">✓</span>Single-agent workloads</li>
-          <li><span class="pck">✓</span>Light voice + workflow builds</li>
-          <li><span class="pcx">—</span>Multi-agent parallel inference</li>
+          <li><span class="pck">✓</span>Voice AI receptionist — zero missed calls</li>
+          <li><span class="pck">✓</span>CRM + lead capture automation</li>
+          <li><span class="pck">✓</span>Scheduling + intake agents</li>
+          <li><span class="pck">✓</span>n8n workflow automation</li>
+          <li><span class="pck">✓</span>SMS + email follow-up sequences</li>
+          <li><span class="pck">✓</span>Runs on your hardware, your data</li>
+          <li><span class="pck">✓</span>Complete architecture proposal</li>
         </ul>
         <a href="#contact" class="pc-btn pc-ol">Get My Proposal</a>
       </div>
       <div class="pc feat">
-        <div class="pc-badge">Recommended</div>
-        <div class="pc-n">Professional</div><div class="pc-sub">SINGLE GPU · RTX 3060 12GB</div>
-        <div class="pc-from">Hardware Budget</div><div class="pc-num"><sup>~$</sup>1,800</div>
-        <div class="pc-note">Your hardware cost estimate</div><div class="pc-div"></div>
+        <div class="pc-badge">Most Popular</div>
+        <div class="pc-n">Solo Operator</div><div class="pc-sub">FREELANCER · CONSULTANT · AGENT</div>
+        <div class="pc-div" style="margin-top:22px"></div>
         <ul class="pc-feats">
-          <li><span class="pck">✓</span>i7/Ryzen 7, 32–64GB RAM</li>
-          <li><span class="pck">✓</span>RTX 3060 12GB GPU</li>
-          <li><span class="pck">✓</span>vLLM or Ollama — 14B AWQ models</li>
-          <li><span class="pck">✓</span>Full multi-agent architecture</li>
-          <li><span class="pck">✓</span>Voice AI + n8n + CRM stack</li>
-          <li><span class="pck">✓</span>Tailscale remote access</li>
-          <li><span class="pck">✓</span>Handles most business deployments</li>
+          <li><span class="pck">✓</span>Personal AI business partner</li>
+          <li><span class="pck">✓</span>Lead capture + client comms</li>
+          <li><span class="pck">✓</span>Scheduling + bookkeeping agents</li>
+          <li><span class="pck">✓</span>Proposal generation automation</li>
+          <li><span class="pck">✓</span>24/7 after-hours coverage</li>
+          <li><span class="pck">✓</span>Runs lean on a single machine</li>
+          <li><span class="pck">✓</span>Beats a full-time admin — at hardware cost</li>
         </ul>
         <a href="#contact" class="pc-btn pc-fl">Get My Proposal</a>
       </div>
       <div class="pc">
-        <div class="pc-n">Sovereign</div><div class="pc-sub">DUAL GPU · FULL STACK</div>
-        <div class="pc-from">Hardware Budget</div><div class="pc-num"><sup>~$</sup>3,000</div>
-        <div class="pc-note">Your hardware cost estimate</div><div class="pc-div"></div>
+        <div class="pc-n">Enterprise / Multi-Site</div><div class="pc-sub">MULTI-LOCATION · FRANCHISE · TEAM OPS</div>
+        <div class="pc-div" style="margin-top:22px"></div>
         <ul class="pc-feats">
-          <li><span class="pck">✓</span>i7/i9, 64GB RAM, NVMe</li>
-          <li><span class="pck">✓</span>2× RTX 3060 12GB (what we run)</li>
-          <li><span class="pck">✓</span>Simultaneous 14B + 7B inference</li>
-          <li><span class="pck">✓</span>Complete Business Brain stack</li>
-          <li><span class="pck">✓</span>Unlimited agent parallelism</li>
-          <li><span class="pck">✓</span>100% data sovereignty</li>
-          <li><span class="pck">✓</span>ClawMcGraw runs on your iron</li>
+          <li><span class="pck">✓</span>Multi-node Tailscale mesh architecture</li>
+          <li><span class="pck">✓</span>Per-location agents + central hub</li>
+          <li><span class="pck">✓</span>Cross-site workflow orchestration</li>
+          <li><span class="pck">✓</span>Centralized KPI + ops dashboard</li>
+          <li><span class="pck">✓</span>Team-wide AI tooling + automations</li>
+          <li><span class="pck">✓</span>Phased rollout with training included</li>
+          <li><span class="pck">✓</span>Full architecture proposal + hardware spec</li>
         </ul>
         <a href="#contact" class="pc-btn pc-ol">Get My Proposal</a>
       </div>
     </div>
-    <p style="text-align:center;font-family:var(--fm);font-size:12px;color:var(--muted);margin-top:28px;padding:0 20px">Architecture build cost, setup, and support is quoted per-project based on your specific requirements. <a href="#contact" style="color:var(--cyan);text-decoration:none">Book a discovery call</a> — we'll send your full proposal within 24 hours.</p>
+    <p style="text-align:center;font-family:var(--fm);font-size:12px;color:var(--muted);margin-top:28px;padding:0 20px">Architecture build cost, setup, and support is quoted per-project based on your specific hardware and requirements. <a href="#contact" style="color:var(--cyan);text-decoration:none">Book a free discovery call</a> — we'll send your full proposal within 24 hours.</p>
+    <p style="text-align:center;font-family:var(--fm);font-size:12px;color:var(--muted);margin-top:10px;padding:0 20px">🦞 <em>Got a gaming rig sitting at home? Want your own local AI? We love a challenge — <a href="#contact" style="color:var(--cyan);text-decoration:none">ask us about it.</a></em></p>
   </div>
 </section>
 
@@ -933,7 +944,7 @@ footer{background:var(--bg);border-top:1px solid var(--border2);position:relativ
           <img src="logo.png" alt="GMTekAI" style="height:32px;width:32px;object-fit:contain;border-radius:5px">
           <span style="font-family:'Unbounded',sans-serif;font-size:14px;font-weight:700;color:#e2e8f0;letter-spacing:-.5px">GM<span style="color:#22d3ee">Tek</span>AI</span>
         </div>
-        <p class="ft-bd">Sovereign AI infrastructure for local businesses. Custom architectures built from scratch. Built on Whidbey Island.</p>
+        <p class="ft-bd">Sovereign AI infrastructure for everyone. Custom architectures for local businesses, solo operators, and individuals — built on your hardware, built from scratch. Whidbey Island, WA.</p>
         <div class="ft-sig">🦞 "I am your Huckleberry." — ClawMcGraw</div>
       </div>
       <div>
@@ -946,12 +957,11 @@ footer{background:var(--bg);border-top:1px solid var(--border2);position:relativ
         </ul>
       </div>
       <div>
-        <div class="ft-ct">Portfolio</div>
+        <div class="ft-ct">Examples</div>
         <ul class="ft-links">
-          <li><a href="https://jangaard.preview.gmtek.ai" target="_blank">Jangaard Clinic</a></li>
-          <li><a href="https://lino.preview.gmtek.ai" target="_blank">Lino Guidero</a></li>
-          <li><a href="https://pilates.preview.gmtek.ai" target="_blank">Pilates Collective</a></li>
           <li><a href="#results">Architectures Deployed</a></li>
+          <li><a href="#technology">Tech Stack</a></li>
+          <li><a href="https://github.com/GMTekAI" target="_blank">GitHub</a></li>
         </ul>
       </div>
       <div>
@@ -1174,7 +1184,7 @@ var sovBens=[
 
 // ── CHAT WIDGET ──
 // Replace DISCORD_WEBHOOK_URL with your actual Discord webhook to enable live pings
-var DISCORD_WEBHOOK_URL='YOUR_DISCORD_WEBHOOK_URL_HERE';
+var DISCORD_WEBHOOK_URL='https://discord.com/api/webhooks/1480393217982861365/D4Y3lnVbqyxhVknmyANKipB_I2Y9RMgwhvtQGjZECHoe4nKLCaGk0DNZuLg1tPDpHAO-';
 var chatOpen=false;
 var chatMsgs=document.getElementById('chat-msgs');
 var chatInput=document.getElementById('chat-input');
