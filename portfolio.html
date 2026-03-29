@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GMTekAI — Client Portfolio</title>
+<meta name="description" content="Live deployments and in-progress AI architectures built for local businesses by GMTekAI — Whidbey Island, WA.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#020208; --bg2:#060610; --surface:#0b0c1a; --card:#0f1120; --card2:#141528;
+  --cyan:#22d3ee; --amber:#f59e0b; --amber-b:#fbbf24;
+  --amber-dim:rgba(245,158,11,0.09); --amber-br:rgba(245,158,11,0.2);
+  --green:#34d399; --purple:#a78bfa; --red:#f87171; --orange:#fb923c;
+  --text:#e2e8f0; --dim:#94a3b8; --muted:#475569;
+  --border:#1e2540; --border2:#141830;
+  --fd:'Unbounded',sans-serif; --fb:'DM Sans',sans-serif; --fm:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);line-height:1.6;overflow-x:hidden}
+.noise{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:64px;background:rgba(2,2,8,.9);backdrop-filter:blur(18px) saturate(160%);
+  border-bottom:1px solid rgba(34,211,238,.1)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo img{height:46px;width:46px;object-fit:contain;border-radius:6px;filter:drop-shadow(0 0 8px rgba(34,211,238,.35))}
+.nav-logo-text{font-family:var(--fd);font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.5px}
+.nav-logo-text em{font-style:normal;color:var(--cyan)}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-links a{color:var(--dim);text-decoration:none;font-size:13px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--cyan)}
+.nav-links a.active{color:var(--cyan)}
+.nav-cta{background:var(--cyan)!important;color:#000!important;padding:8px 18px!important;
+  border-radius:6px!important;font-weight:700!important;font-size:12px!important;
+  letter-spacing:.5px!important;text-transform:uppercase!important;transition:all .2s!important}
+.nav-cta:hover{background:#38e8ff!important;transform:translateY(-1px)!important;box-shadow:0 4px 20px rgba(34,211,238,.35)!important}
+.nav-ham{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-direction:column;gap:5px;align-items:center;justify-content:center}
+.nav-ham span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
+@media(max-width:768px){.nav-ham{display:flex}.nav-links{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(2,2,8,.97);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);flex-direction:column;padding:16px 20px 24px;gap:4px;z-index:99}.nav-links.open{display:flex}.nav-links a{padding:10px 4px;font-size:14px;border-bottom:1px solid var(--border2)}.nav-links a:last-child{border-bottom:none;margin-top:8px}}
+
+/* SECTIONS */
+section{position:relative;z-index:1}
+.si{max-width:1200px;margin:0 auto;padding:96px 48px}
+@media(max-width:768px){.si{padding:68px 20px}}
+.eye{font-family:var(--fm);font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.eye::before{content:'//';opacity:.4}
+.sec-t{font-family:var(--fd);font-size:clamp(28px,3.5vw,46px);font-weight:800;
+  line-height:1.05;letter-spacing:-1.5px;color:var(--text);margin-bottom:14px}
+.sec-d{font-size:15px;color:var(--dim);max-width:540px;line-height:1.8;font-weight:300}
+
+/* BUTTONS */
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--cyan);color:#000;
+  padding:13px 26px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;
+  border:2px solid var(--cyan);transition:all .25s;box-shadow:0 4px 24px rgba(34,211,238,.2)}
+.btn-p:hover{background:transparent;color:var(--cyan);transform:translateY(-2px);box-shadow:0 8px 36px rgba(34,211,238,.25)}
+.btn-s{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text);
+  padding:13px 26px;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;
+  border:1px solid var(--border);transition:all .25s}
+.btn-s:hover{border-color:rgba(34,211,238,.3);color:var(--cyan);background:rgba(34,211,238,.06);transform:translateY(-2px)}
+
+/* REVEALS */
+.rev{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.rev.in{opacity:1;transform:translateY(0)}
+.rd1{transition-delay:.1s}.rd2{transition-delay:.2s}.rd3{transition-delay:.3s}.rd4{transition-delay:.4s}.rd5{transition-delay:.5s}
+@keyframes glo{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(52,211,153,.4)}50%{opacity:.6;box-shadow:0 0 0 5px rgba(52,211,153,0)}}
+
+/* PAGE HERO */
+.page-hero{padding:140px 48px 72px;max-width:1200px;margin:0 auto}
+@media(max-width:768px){.page-hero{padding:110px 20px 52px}}
+
+/* PORTFOLIO GRID */
+.port-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px;margin-top:52px}
+@media(max-width:700px){.port-grid{grid-template-columns:1fr}}
+
+.port-card{background:var(--card);border:1px solid var(--border2);border-radius:16px;overflow:hidden;
+  transition:all .3s;text-decoration:none;display:block;position:relative}
+.port-card:hover{transform:translateY(-5px);border-color:rgba(34,211,238,.28);box-shadow:0 20px 56px rgba(0,0,0,.5)}
+.port-card.disabled{pointer-events:none;opacity:.7}
+.port-card.in-progress:hover{border-color:rgba(245,158,11,.28)}
+
+.port-preview{height:160px;background:linear-gradient(135deg,var(--surface),var(--card2));
+  display:flex;align-items:center;justify-content:center;font-size:56px;
+  border-bottom:1px solid var(--border2);position:relative;overflow:hidden}
+
+/* status badge — overridden per card via class */
+.badge-live::after{content:'LIVE';position:absolute;top:12px;right:12px;font-family:var(--fm);
+  font-size:9px;font-weight:700;letter-spacing:1px;background:rgba(52,211,153,.15);
+  color:var(--green);border:1px solid rgba(52,211,153,.3);padding:2px 8px;border-radius:4px}
+.badge-progress::after{content:'IN PROGRESS';position:absolute;top:12px;right:12px;font-family:var(--fm);
+  font-size:9px;font-weight:700;letter-spacing:1px;background:rgba(245,158,11,.12);
+  color:var(--amber);border:1px solid rgba(245,158,11,.28);padding:2px 8px;border-radius:4px}
+.badge-soon::after{content:'COMING SOON';position:absolute;top:12px;right:12px;font-family:var(--fm);
+  font-size:9px;font-weight:700;letter-spacing:1px;background:rgba(148,163,184,.08);
+  color:var(--muted);border:1px solid rgba(148,163,184,.18);padding:2px 8px;border-radius:4px}
+.badge-oss::after{content:'OPEN SOURCE';position:absolute;top:12px;right:12px;font-family:var(--fm);
+  font-size:9px;font-weight:700;letter-spacing:1px;background:rgba(167,139,250,.12);
+  color:var(--purple);border:1px solid rgba(167,139,250,.28);padding:2px 8px;border-radius:4px}
+
+.port-info{padding:22px}
+.port-name{font-family:var(--fd);font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;letter-spacing:-.3px}
+.port-type{font-size:11px;color:var(--muted);font-family:var(--fm);margin-bottom:10px}
+.port-desc{font-size:13px;color:var(--dim);line-height:1.7;margin-bottom:14px}
+.port-stack{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:16px}
+.port-tag{font-family:var(--fm);font-size:9px;color:var(--dim);background:var(--surface);border:1px solid var(--border2);padding:2px 7px;border-radius:4px}
+.port-link{font-family:var(--fm);font-size:11px;color:var(--cyan);text-decoration:none;
+  display:inline-flex;align-items:center;gap:5px;transition:gap .2s}
+.port-link:hover{gap:8px}
+.port-card.disabled .port-link{color:var(--muted);pointer-events:none}
+
+/* FILTER PILLS */
+.port-filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}
+.pf-btn{font-family:var(--fm);font-size:11px;letter-spacing:.5px;padding:6px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--dim);cursor:pointer;transition:all .2s}
+.pf-btn:hover{border-color:rgba(34,211,238,.3);color:var(--cyan)}
+.pf-btn.active{background:rgba(34,211,238,.1);border-color:rgba(34,211,238,.4);color:var(--cyan)}
+.port-card.hidden{display:none}
+
+/* CASE STUDY EXTRAS */
+.port-problem{font-size:12px;color:var(--amber);font-family:var(--fm);margin-bottom:10px;line-height:1.6;padding:8px 10px;background:rgba(245,158,11,.06);border-left:2px solid var(--amber);border-radius:0 6px 6px 0}
+.port-outcome{font-size:11px;color:var(--green);font-family:var(--fm);margin-bottom:12px;display:flex;align-items:flex-start;gap:6px;line-height:1.5}
+.port-outcome::before{content:'✓';flex-shrink:0;font-weight:700}
+
+/* DIVIDER */
+.section-label{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:18px;display:flex;align-items:center;gap:12px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border2)}
+
+/* CTA STRIP */
+.cta-strip{background:var(--bg2);border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);
+  padding:72px 48px;text-align:center;position:relative;z-index:1}
+.cta-strip h2{font-family:var(--fd);font-size:clamp(24px,3vw,38px);font-weight:800;
+  letter-spacing:-1px;color:var(--text);margin-bottom:12px}
+.cta-strip p{font-size:14px;color:var(--dim);margin-bottom:28px;max-width:460px;margin-left:auto;margin-right:auto}
+.cta-actions{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+@media(max-width:768px){.cta-strip{padding:52px 20px}}
+
+/* FOOTER */
+footer{background:var(--bg);border-top:1px solid var(--border2);position:relative;z-index:1}
+.fi{max-width:1200px;margin:0 auto;padding:44px 48px 28px}
+.ft-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px}
+.ft-bd{font-size:12px;color:var(--muted);line-height:1.7;max-width:240px;margin-bottom:12px}
+.ft-sig{font-family:var(--fm);font-size:11px;color:var(--cyan);opacity:.6}
+.ft-ct{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.ft-links{list-style:none}
+.ft-links li{margin-bottom:7px}
+.ft-links a{font-size:12px;color:var(--dim);text-decoration:none;transition:color .2s}
+.ft-links a:hover{color:var(--cyan)}
+.ft-bot{border-top:1px solid var(--border2);padding-top:22px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.ft-copy{font-size:11px;color:var(--muted);font-family:var(--fm)}
+.ft-copy span{color:var(--cyan)}
+.ft-isle{font-family:var(--fm);font-size:11px;color:var(--muted);display:flex;align-items:center;gap:5px}
+@media(max-width:900px){.ft-top{grid-template-columns:1fr 1fr;gap:22px}}
+@media(max-width:600px){.fi{padding:36px 20px 22px}.ft-top{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="GMTekAI logo">
+    <span class="nav-logo-text">GM<em>Tek</em>AI</span>
+  </a>
+  <button class="nav-ham" id="nav-ham" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-links">
+    <a href="solutions.html">Solutions</a>
+    <a href="portfolio.html" class="active">Portfolio</a>
+    <a href="local-ai.html">Local AI</a>
+    <a href="webdev.html">Web Dev</a>
+    <a href="about.html">About</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="index.html#contact" class="nav-cta">Book a Call</a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="eye rev">// Client Work</div>
+  <h1 class="sec-t rev" style="font-size:clamp(32px,4vw,58px);margin-bottom:18px">Real Problems.<br><span style="color:var(--cyan)">Real Solutions.</span></h1>
+  <p class="sec-d rev rd1" style="margin-bottom:28px">Every build starts with a specific workflow problem. Here's what we diagnosed, what we built, and what changed for each client.</p>
+  <div class="port-filters rev rd2" id="port-filters">
+    <button class="pf-btn active" data-filter="all">All</button>
+    <button class="pf-btn" data-filter="health">Health &amp; Wellness</button>
+    <button class="pf-btn" data-filter="real-estate">Real Estate</button>
+    <button class="pf-btn" data-filter="fitness">Fitness</button>
+    <button class="pf-btn" data-filter="automotive">Automotive</button>
+    <button class="pf-btn" data-filter="professional">Professional Services</button>
+    <button class="pf-btn" data-filter="concierge">Concierge</button>
+    <button class="pf-btn" data-filter="construction">Construction</button>
+    <button class="pf-btn" data-filter="restaurant">Restaurant &amp; Food</button>
+  </div>
+</div>
+
+<!-- PORTFOLIO SECTION -->
+<section style="background:var(--bg);padding-bottom:96px;position:relative;z-index:1">
+  <div style="max-width:1200px;margin:0 auto;padding:0 48px">
+
+    <!-- AI SYSTEMS -->
+    <div class="section-label rev rd2">AI Systems &amp; Automation</div>
+    <div class="port-grid" style="margin-top:0">
+
+      <a href="https://preview-jangaard.gmtek.ai" target="_blank" class="port-card rev rd1" data-cat="health">
+        <div class="port-preview badge-live">🏥</div>
+        <div class="port-info">
+          <div class="port-name">Jangaard Clinic</div>
+          <div class="port-type">Medical Clinic — Whidbey Island, WA</div>
+          <div class="port-problem">Problem: Staff spending 2+ hrs/day on scheduling calls, missed appointments costing revenue, no after-hours coverage.</div>
+          <div class="port-desc">AI scheduling stack with automated patient intake, appointment reminders, and a 48-hour follow-up sequence. HIPAA-aware — no PHI touches cloud inference.</div>
+          <div class="port-outcome">After-hours calls handled automatically. Intake forms pre-fill charts. No-show rate down with automated reminders.</div>
+          <div class="port-stack">
+            <span class="port-tag">Voice AI</span>
+            <span class="port-tag">Scheduling</span>
+            <span class="port-tag">Patient Intake</span>
+            <span class="port-tag">n8n</span>
+            <span class="port-tag">OpenClaw</span>
+          </div>
+          <span class="port-link">View Preview Site →</span>
+        </div>
+      </a>
+
+      <a href="https://preview-lino.gmtek.ai" target="_blank" class="port-card rev rd2" data-cat="real-estate">
+        <div class="port-preview badge-live">🏡</div>
+        <div class="port-info">
+          <div class="port-name">Lino Guidero</div>
+          <div class="port-type">Luxury Real Estate — Realogics Sotheby's, Seattle</div>
+          <div class="port-problem">Problem: High-volume luxury agent losing leads in the pipeline, no automated post-close follow-up, market research eating hours per week.</div>
+          <div class="port-desc">AI lead triage, market intelligence reports, automated post-close follow-up, and a real-time business dashboard. All running on private local infrastructure for a 20-year luxury veteran.</div>
+          <div class="port-outcome">Lead response time cut from hours to minutes. Post-close referral sequences run automatically. Market reports generated on demand.</div>
+          <div class="port-stack">
+            <span class="port-tag">Lead Triage AI</span>
+            <span class="port-tag">Market Intel</span>
+            <span class="port-tag">CRM</span>
+            <span class="port-tag">Client Portal</span>
+            <span class="port-tag">n8n</span>
+            <span class="port-tag">OpenClaw</span>
+          </div>
+          <span class="port-link">View Preview Site →</span>
+        </div>
+      </a>
+
+      <a href="https://preview-pilates.gmtek.ai" target="_blank" class="port-card rev rd3" data-cat="fitness">
+        <div class="port-preview badge-live">🧘</div>
+        <div class="port-info">
+          <div class="port-name">Pilates Collective</div>
+          <div class="port-type">Fitness Studio — Booking &amp; Retention</div>
+          <div class="port-problem">Problem: Owner fielding booking calls during class, cancellations with empty spots, members drifting without re-engagement.</div>
+          <div class="port-desc">AI booking agent + voice receptionist handling class sign-ups, cancellations, and waitlist management 24/7. Automated retention workflows keep members active.</div>
+          <div class="port-outcome">Bookings handled without owner involvement. Waitlist fills cancellations automatically. Re-engagement sequences recover lapsed members.</div>
+          <div class="port-stack">
+            <span class="port-tag">Booking AI</span>
+            <span class="port-tag">Voice</span>
+            <span class="port-tag">Retention Workflows</span>
+            <span class="port-tag">n8n</span>
+            <span class="port-tag">OpenClaw</span>
+          </div>
+          <span class="port-link">View Preview Site →</span>
+        </div>
+      </a>
+
+
+      <a href="https://preview-cantrell.gmtek.ai" target="_blank" class="port-card rev rd4" data-cat="automotive">
+        <div class="port-preview badge-live">🏎️</div>
+        <div class="port-info">
+          <div class="port-name">Cantrell Motorsports</div>
+          <div class="port-type">Automotive — Performance, Fabrication &amp; Service</div>
+          <div class="port-problem">Problem: High-volume shop losing service bookings to voicemail, no systematic parts inquiry handling, track event coordination done manually.</div>
+          <div class="port-desc">AI parts advisor, service booking agent, track event coordination system, and an ops dashboard — race-shop precision with concierge-level follow-through.</div>
+          <div class="port-outcome">Parts inquiries answered 24/7. Service bookings captured without phone tag. Track event registrations automated end-to-end.</div>
+          <div class="port-stack">
+            <span class="port-tag">Parts Advisor AI</span>
+            <span class="port-tag">Service Booking</span>
+            <span class="port-tag">Track Events</span>
+            <span class="port-tag">n8n</span>
+            <span class="port-tag">OpenClaw</span>
+          </div>
+          <span class="port-link">View Preview Site →</span>
+        </div>
+      </a>
+
+      <a href="https://preview-jcb-forensics.gmtek.ai" target="_blank" class="port-card rev rd5" data-cat="professional">
+        <div class="port-preview badge-live">🔬</div>
+        <div class="port-info">
+          <div class="port-name">JCB Forensic Engineering</div>
+          <div class="port-type">Expert Witness &amp; Forensic Consulting</div>
+          <div class="port-problem">Problem: Engineering firm with no web presence — missing cases that go to attorneys' referral lists, no professional intake process.</div>
+          <div class="port-desc">Professional site with structured case intake, document management, and expert witness credentialing. All data stays on private local infrastructure — no cloud exposure.</div>
+          <div class="port-outcome">Professional web presence established. Case inquiries routed and tracked automatically. Credentialing documents organized and accessible.</div>
+          <div class="port-stack">
+            <span class="port-tag">Case Intake</span>
+            <span class="port-tag">Document AI</span>
+            <span class="port-tag">Expert Witness</span>
+            <span class="port-tag">OpenClaw</span>
+          </div>
+          <span class="port-link">View Preview Site →</span>
+        </div>
+      </a>
+
+      <!-- WEB PRESENCE SECTION BREAK -->
+      <div style="grid-column:1/-1;padding:40px 0 8px;margin-top:12px;border-top:1px solid var(--border2)">
+        <div class="section-label rev">Web Presence &amp; Local Demos</div>
+      </div>
+
+      <a href="https://preview-bwild-aussies.gmtek.ai" target="_blank" class="port-card rev rd1" data-cat="services">
+        <div class="port-preview badge-live">🐾</div>
+        <div class="port-info">
+          <div class="port-name">BWild Australian Shepherds</div>
+          <div class="port-type">ASCA Kennel &amp; Breeder — Pacific Northwest, WA</div>
+          <div class="port-problem">Problem: Established ASCA breeder with real credentials buried under a GoDaddy template full of generic pet-shop copy, broken navigation, and Golden Retriever placeholder text.</div>
+          <div class="port-desc">Full 7-page redesign: homepage, about, dogs directory, planned litters, puppy questionnaire, gallery with lightbox, and contact. All content sourced from the live site — restructured, rewritten, and elevated.</div>
+          <div class="port-outcome">Tanya Johnson's 20+ years of ASCA involvement, stockdog titles, and breeding philosophy now lead the experience — not a GoDaddy theme.</div>
+          <div class="port-stack">
+            <span class="port-tag">Premium Redesign</span>
+            <span class="port-tag">7 Pages</span>
+            <span class="port-tag">Gallery + Lightbox</span>
+            <span class="port-tag">Mobile-First</span>
+          </div>
+          <span class="port-link">View Preview Site →</span>
+        </div>
+      </a>
+
+      <a href="https://preview-taskharbor.gmtek.ai" target="_blank" class="port-card rev rd1" data-cat="concierge">
+        <div class="port-preview badge-live">⚓</div>
+        <div class="port-info">
+          <div class="port-name">TaskHarbor</div>
+          <div class="port-type">Local Concierge &amp; Errand Service — South Whidbey Island</div>
+          <div class="port-problem">Problem: Solo operator taking service requests by phone and text, losing track of jobs, no way to scale intake without hiring.</div>
+          <div class="port-desc">Service request site wired end-to-end: form submission triggers n8n automation — Google Sheets CRM append + instant Telegram alert to owner. Zero manual data entry.</div>
+          <div class="port-outcome">Every request logged automatically. Owner notified the second a job comes in. No data entry, no missed requests.</div>
+          <div class="port-stack">
+            <span class="port-tag">Request Form</span>
+            <span class="port-tag">n8n</span>
+            <span class="port-tag">Google Sheets CRM</span>
+            <span class="port-tag">Telegram</span>
+            <span class="port-tag">Email</span>
+          </div>
+          <span class="port-link">View Preview Site →</span>
+        </div>
+      </a>
+
+      <a href="https://amc-construction.gmtek.ai" target="_blank" class="port-card rev rd1" data-cat="construction">
+        <div class="port-preview badge-live">🏗️</div>
+        <div class="port-info">
+          <div class="port-name">AMC Repair & Construction</div>
+          <div class="port-type">General Contractor — Whidbey Island, WA · Se Habla Español</div>
+          <div class="port-problem">Problem: Family-owned bilingual contractor with 10+ years experience — "Se habla español" buried in fine print, no lead capture, HomeAdvisor approved but no social proof on site.</div>
+          <div class="port-desc">Conversion-focused redesign built around Adrian Cortes's real story. Bilingual badge in the hero, real family photo in About, full service grid, and a bilingual quote request form with language preference selector.</div>
+          <div class="port-outcome">Bilingual service now leads the brand. Real photos of Adrian & Sofya replace stock. Quote form pre-qualifies project type and preferred language.</div>
+          <div class="port-stack">
+            <span class="port-tag">FireCrawl Intel</span>
+            <span class="port-tag">HTML + Tailwind</span>
+            <span class="port-tag">GSAP Animations</span>
+            <span class="port-tag">Bilingual Form</span>
+            <span class="port-tag">Cloudflare Workers</span>
+          </div>
+          <span class="port-link">View Live Demo →</span>
+        </div>
+      </a>
+
+      <a href="https://whidbey-roof.gmtek.ai" target="_blank" class="port-card rev rd2" data-cat="construction">
+        <div class="port-preview badge-live">🏠</div>
+        <div class="port-info">
+          <div class="port-name">Whidbey Roof & Gutter Cleaning</div>
+          <div class="port-type">Exterior Cleaning — South Whidbey Island, WA</div>
+          <div class="port-problem">Problem: 103 Google reviews at 5.0 stars, Nextdoor Neighborhood Favorite, and a 2-year no-moss warranty — none of it on the website, which said "leave a message."</div>
+          <div class="port-desc">Site built around Sarah, the Vapi AI receptionist already answering calls 24/7. Social proof leads the hero. Live call indicator in the nav. Animated Sarah card with mock conversation. Real credentials front and center.</div>
+          <div class="port-outcome">103 reviews and the Nextdoor award now lead the page. Sarah's 24/7 availability is the hero differentiator. Gabe's local roots replace generic copy.</div>
+          <div class="port-stack">
+            <span class="port-tag">Vapi AI Receptionist</span>
+            <span class="port-tag">FireCrawl Intel</span>
+            <span class="port-tag">HTML + Tailwind</span>
+            <span class="port-tag">GSAP</span>
+            <span class="port-tag">Cloudflare Workers</span>
+          </div>
+          <span class="port-link">View Live Demo →</span>
+        </div>
+      </a>
+
+      <a href="https://daniel-fouts.gmtek.ai" target="_blank" class="port-card rev rd3" data-cat="real-estate">
+        <div class="port-preview badge-live">🏡</div>
+        <div class="port-info">
+          <div class="port-name">Daniel Fouts</div>
+          <div class="port-type">Real Estate Agent — South Whidbey Island, WA</div>
+          <div class="port-problem">Problem: 20+ years of South Whidbey expertise buried on a builder template — no lead capture, no valuation offer, nothing that converts a browsing homeowner.</div>
+          <div class="port-desc">Editorial luxury real estate site. Cormorant Garant + DM Sans, ivory + gold palette. Split hero, animated market stats ticker, dual buyer/seller intake form, and a featured listings mosaic.</div>
+          <div class="port-outcome">Dan's 20-year local expertise now leads the hero. Valuation CTA captures seller intent. Buyer/seller toggle form qualifies leads before first contact.</div>
+          <div class="port-stack">
+            <span class="port-tag">GSAP Animations</span>
+            <span class="port-tag">Lead Intake</span>
+            <span class="port-tag">Cloudflare Workers</span>
+            <span class="port-tag">FireCrawl Intel</span>
+          </div>
+          <span class="port-link">View Live Demo →</span>
+        </div>
+      </a>
+
+      <a href="https://dean-workman.gmtek.ai" target="_blank" class="port-card rev rd4" data-cat="real-estate">
+        <div class="port-preview badge-live">🏘️</div>
+        <div class="port-info">
+          <div class="port-name">Dean Workman</div>
+          <div class="port-type">Real Estate Agent — NW Paradise Realty, Whidbey Island</div>
+          <div class="port-problem">Problem: Established agent whose community depth and local knowledge were invisible behind a generic IDX template with no personality or trust signals.</div>
+          <div class="port-desc">Dark immersive site. Crimson Text + IBM Plex Sans, forest + copper palette. Floating agent card hero, community coverage strip, 4-column testimonial grid, and a "Why Dean" dark section with stat boxes.</div>
+          <div class="port-outcome">Dean's local roots and 360 coverage now lead the brand. Real photo, real stats, real community names — not placeholder copy.</div>
+          <div class="port-stack">
+            <span class="port-tag">GSAP Animations</span>
+            <span class="port-tag">Testimonials</span>
+            <span class="port-tag">Cloudflare Workers</span>
+            <span class="port-tag">FireCrawl Intel</span>
+          </div>
+          <span class="port-link">View Live Demo →</span>
+        </div>
+      </a>
+
+      <a href="https://lisa-leonard.gmtek.ai" target="_blank" class="port-card rev rd5" data-cat="real-estate">
+        <div class="port-preview badge-live">🌿</div>
+        <div class="port-info">
+          <div class="port-name">Lisa Leonard</div>
+          <div class="port-type">Real Estate Agent — Keller Williams, Whidbey Island</div>
+          <div class="port-problem">Problem: KW agent with deep community ties and a genuine Whidbey-first approach — lost in a KW template that looked identical to 50,000 other agents.</div>
+          <div class="port-desc">Bright, community-first site. Fraunces + Jost, white + terracotta + navy. 6-neighborhood community band, asymmetric mosaic listings grid, and a home valuation split CTA.</div>
+          <div class="port-outcome">Whidbey neighborhoods lead the identity. Lisa's photo and personality replace corporate KW branding. Valuation CTA targets active sellers.</div>
+          <div class="port-stack">
+            <span class="port-tag">GSAP Animations</span>
+            <span class="port-tag">Community Focus</span>
+            <span class="port-tag">Cloudflare Workers</span>
+            <span class="port-tag">FireCrawl Intel</span>
+          </div>
+          <span class="port-link">View Live Demo →</span>
+        </div>
+      </a>
+
+      <a href="https://sw-woodworks.gmtek.ai" target="_blank" class="port-card rev rd1" data-cat="construction">
+        <div class="port-preview badge-live">🪵</div>
+        <div class="port-info">
+          <div class="port-name">South Whidbey Wood Works</div>
+          <div class="port-type">Custom Furniture &amp; Cabinetry — Whidbey Island, WA</div>
+          <div class="port-problem">Problem: 7× Houzz Best of Design winner with 1,000+ Ideabook saves and a 5.0 rating — none of that credibility showed up anywhere on his web presence.</div>
+          <div class="port-desc">Artisanal luxury site. Bodoni Moda + Karla, walnut + amber + linen. Houzz award badges overlaid on a split hero, 12-column masonry portfolio grid, and a commission inquiry form with project/budget selectors.</div>
+          <div class="port-outcome">7× Houzz award and 1,000+ saves now lead the hero. Mark's craftsmanship and process are the selling point — not a generic "contact us" page.</div>
+          <div class="port-stack">
+            <span class="port-tag">GSAP Animations</span>
+            <span class="port-tag">Portfolio Masonry</span>
+            <span class="port-tag">Cloudflare Workers</span>
+            <span class="port-tag">Houzz Intel</span>
+          </div>
+          <span class="port-link">View Live Demo →</span>
+        </div>
+      </a>
+
+      <a href="https://the-braeburn.gmtek.ai" target="_blank" class="port-card rev rd2" data-cat="restaurant">
+        <div class="port-preview badge-live">🍽️</div>
+        <div class="port-info">
+          <div class="port-name">The Braeburn</div>
+          <div class="port-type">Restaurant &amp; Bar — Langley, Whidbey Island, WA</div>
+          <div class="port-problem">Problem: Beloved Langley institution with a full bar, dog-friendly patio, and a sister location — but their online presence didn't come close to matching the actual experience.</div>
+          <div class="port-desc">Full-bleed food photo hero with floating hours card, nav that transitions color on scroll, identity strip, menu tease cards, sister location cross-promo, and a private events inquiry form.</div>
+          <div class="port-outcome">Atmosphere-first design matches the actual Braeburn vibe. Dog-friendly patio note and hours are front and center. Events form captures private bookings.</div>
+          <div class="port-stack">
+            <span class="port-tag">GSAP Animations</span>
+            <span class="port-tag">Events Form</span>
+            <span class="port-tag">Cloudflare Workers</span>
+            <span class="port-tag">Restaurant Design</span>
+          </div>
+          <span class="port-link">View Live Demo →</span>
+        </div>
+      </a>
+
+      <a href="https://pickles-deli.gmtek.ai" target="_blank" class="port-card rev rd3" data-cat="restaurant">
+        <div class="port-preview badge-live">🥒</div>
+        <div class="port-info">
+          <div class="port-name">Pickles Deli</div>
+          <div class="port-type">Deli &amp; Sandwich Shop — Clinton, WA · Ferry-Adjacent</div>
+          <div class="port-problem">Problem: Ferry-side deli with daily specials, a loyal following, and Essential Baking + Boar's Head sourcing — with no web presence and no way to showcase or manage specials.</div>
+          <div class="port-desc">Chalkboard deli aesthetic site + a working AI Specials Agent. The agent uses Claude Haiku to suggest specials from inventory, generate punny names, and log history to localStorage — all browser-based, zero backend.</div>
+          <div class="port-outcome">First website for this ferry-town staple. Catering inquiry form captures group orders. AI agent gives the owner a daily specials workflow she didn't have before.</div>
+          <div class="port-stack">
+            <span class="port-tag">Claude Haiku Agent</span>
+            <span class="port-tag">AI Specials Tool</span>
+            <span class="port-tag">Cloudflare Workers</span>
+            <span class="port-tag">localStorage</span>
+          </div>
+          <span class="port-link">View Live Demo →</span>
+        </div>
+      </a>
+
+      <a href="https://jangaard-clinic.gmtek.ai" target="_blank" class="port-card rev rd1" data-cat="health">
+        <div class="port-preview badge-live">🏥</div>
+        <div class="port-info">
+          <div class="port-name">Jangaard Clinic</div>
+          <div class="port-type">Naturopathic Clinic — Freeland, Whidbey Island · Est. 1977</div>
+          <div class="port-problem">Problem: 47 years of healing credibility, two Naturopathic Doctors, and a Wix site that buries all of it under generic healthcare copy with no patient intake flow.</div>
+          <div class="port-desc">Warm, trust-forward redesign. Playfair Display + Source Serif 4, forest green + cream palette. Real doctor photos, three-discipline pillars (Western / Naturopathic / German Functional), real testimonials, and a full new patient intake form.</div>
+          <div class="port-outcome">47 years of healing authority now leads the hero. Both doctors have real bios and photos. New patient form captures intake before first call.</div>
+          <div class="port-stack">
+            <span class="port-tag">FireCrawl Intel</span>
+            <span class="port-tag">Patient Intake</span>
+            <span class="port-tag">GSAP Animations</span>
+            <span class="port-tag">Cloudflare Workers</span>
+          </div>
+          <span class="port-link">View Live Demo →</span>
+        </div>
+      </a>
+
+      <a href="https://pilates-collective.gmtek.ai" target="_blank" class="port-card rev rd2" data-cat="fitness">
+        <div class="port-preview badge-live">🧘</div>
+        <div class="port-info">
+          <div class="port-name">Pilates Collective</div>
+          <div class="port-type">Reformer Pilates Studio — Whidbey Island, WA</div>
+          <div class="port-problem">Problem: A boutique studio with a genuinely fun brand voice ("No Ferry Required") and real community energy — trapped in a generic Squarespace template that could belong to any studio anywhere.</div>
+          <div class="port-desc">Warm boutique redesign. Fraunces + DM Sans, dusty rose + deep plum + sage. Scrolling identity marquee, 3 service cards with real photos, new client offer strip, teacher training section, and booking form.</div>
+          <div class="port-outcome">The "No Ferry Required" angle leads the hero. Studio personality comes through everywhere. Booking form captures class type intent before first contact.</div>
+          <div class="port-stack">
+            <span class="port-tag">FireCrawl Intel</span>
+            <span class="port-tag">Booking Form</span>
+            <span class="port-tag">GSAP Animations</span>
+            <span class="port-tag">Cloudflare Workers</span>
+          </div>
+          <span class="port-link">View Live Demo →</span>
+        </div>
+      </a>
+
+      <a href="https://lino-guidero.gmtek.ai" target="_blank" class="port-card rev rd3" data-cat="real-estate">
+        <div class="port-preview badge-live">🏙️</div>
+        <div class="port-info">
+          <div class="port-name">Lino Guidero</div>
+          <div class="port-type">Luxury Real Estate — Realogics Sotheby's, Seattle WA</div>
+          <div class="port-problem">Problem: 20 years luxury experience, Whidbey Island roots, bilingual, BFA from UW, Volunteer of the Year — the person behind the brand is compelling. Two websites that don't tell that story at all.</div>
+          <div class="port-desc">Ultra-luxury redesign. Cormorant Garant + Montserrat, obsidian + gold. Full-bleed property hero, real bio with the full Lino story, featured listings section, Sotheby's advantage strip, and a buyer/seller inquiry form.</div>
+          <div class="port-outcome">Lino's human story — Whidbey native, world traveler, bilingual — now leads the brand. Sotheby's prestige backs it. Luxury feel matches his actual client tier.</div>
+          <div class="port-stack">
+            <span class="port-tag">FireCrawl Intel</span>
+            <span class="port-tag">Luxury Design</span>
+            <span class="port-tag">GSAP Animations</span>
+            <span class="port-tag">Cloudflare Workers</span>
+          </div>
+          <span class="port-link">View Live Demo →</span>
+        </div>
+      </a>
+
+      <a href="https://cantrell-motorsports.gmtek.ai" target="_blank" class="port-card rev rd4" data-cat="automotive">
+        <div class="port-preview badge-live">🏎️</div>
+        <div class="port-info">
+          <div class="port-name">Cantrell Motorsports</div>
+          <div class="port-type">European Auto + Performance Parts — Bellevue, WA</div>
+          <div class="port-problem">Problem: Porsche specialist, custom roll cage fabricator, and authorized performance parts dealer — with a WordPress site that looks identical to every other shop in the Pacific Northwest.</div>
+          <div class="port-desc">Dark performance redesign. Oswald + Work Sans, carbon + electric orange. 10-service grid with real shop photos, dedicated track setup section, custom fab feature, and a full service request form with vehicle details.</div>
+          <div class="port-outcome">Track credibility and custom fab capability now lead the brand. Real shop photos replace stock. Service form captures vehicle + job details before first call.</div>
+          <div class="port-stack">
+            <span class="port-tag">FireCrawl Intel</span>
+            <span class="port-tag">Service Grid</span>
+            <span class="port-tag">GSAP Animations</span>
+            <span class="port-tag">Cloudflare Workers</span>
+          </div>
+          <span class="port-link">View Live Demo →</span>
+        </div>
+      </a>
+
+      <a href="https://hein-marine.gmtek.ai" target="_blank" class="port-card rev rd4" data-cat="trades">
+        <div class="port-preview badge-live">⚓</div>
+        <div class="port-info">
+          <div class="port-name">Hein Marine</div>
+          <div class="port-type">Authorized Honda Marine Dealer — Langley, WA</div>
+          <div class="port-problem">Problem: 40-year marine specialist and authorized Honda dealer with zero web presence — losing sales and service inquiries to competitors who simply show up online.</div>
+          <div class="port-desc">Deep navy + Honda red dealer site. Barlow Condensed, full BF series lineup using Honda's official product photography, 6-service grid with mobile service emphasis, real Yelp review, and a detailed service request form with motor brand and HP range.</div>
+          <div class="port-outcome">Honda dealer credibility front and center. Full outboard lineup browsable on-site. Mobile service now a feature, not a footnote. Service form qualifies leads before first call.</div>
+          <div class="port-stack">
+            <span class="port-tag">Honda CDN Photos</span>
+            <span class="port-tag">Marine Dealer</span>
+            <span class="port-tag">Service Form</span>
+            <span class="port-tag">Cloudflare Workers</span>
+          </div>
+          <span class="port-link">View Live Demo →</span>
+        </div>
+      </a>
+
+      <a href="https://sound-construction.gmtek.ai" target="_blank" class="port-card rev rd3" data-cat="construction">
+        <div class="port-preview badge-live">🏗️</div>
+        <div class="port-info">
+          <div class="port-name">Sound Construction LLC</div>
+          <div class="port-type">Custom Home Builder — South Whidbey Island, WA</div>
+          <div class="port-problem">Problem: Award-winning builder with a Fine Home Building national award and 50+ years experience — buried in a 2018 Wix site with no lead capture and no conversion flow.</div>
+          <div class="port-desc">Full conversion-focused redesign built from FireCrawl market intelligence. Animated hero, social proof bar, contextual project portfolio, 5-step process page, and a project intake form with budget pre-qualification.</div>
+          <div class="port-outcome">National award now leads the hero. Killer testimonials surface as social proof. Lead intake replaces a dead contact page. Deployed to custom domain in under 2 hours.</div>
+          <div class="port-stack">
+            <span class="port-tag">FireCrawl Intel</span>
+            <span class="port-tag">HTML + Tailwind</span>
+            <span class="port-tag">GSAP Animations</span>
+            <span class="port-tag">Cloudflare Workers</span>
+            <span class="port-tag">Lead Intake</span>
+          </div>
+          <span class="port-link">View Live Demo →</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- OPEN SOURCE -->
+    <div class="section-label rev rd2" style="margin-top:60px">Open Source Infrastructure</div>
+    <div class="port-grid" style="margin-top:0;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))">
+
+      <a href="https://github.com/GMTekAI" target="_blank" class="port-card rev rd1">
+        <div class="port-preview badge-oss" style="font-size:44px">🦞⚙️</div>
+        <div class="port-info">
+          <div class="port-name">GMTekAI Platform</div>
+          <div class="port-type">Open Source — Agent Framework + Infrastructure</div>
+          <div class="port-desc">OpenClaw, the open source agent framework powering every deployment. Skill-based, multi-model, built for real business operations. Runs on your hardware.</div>
+          <div class="port-stack">
+            <span class="port-tag">OpenClaw</span>
+            <span class="port-tag">vLLM</span>
+            <span class="port-tag">n8n</span>
+            <span class="port-tag">Tailscale</span>
+          </div>
+          <span class="port-link">View on GitHub →</span>
+        </div>
+      </a>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-strip">
+  <h2 class="rev">Want One Built for You?</h2>
+  <p class="rev rd1">Book a free 30-minute call. We'll walk through your workflow, identify the highest-leverage automations, and tell you exactly what we'd build — before you spend a dollar.</p>
+  <div class="cta-actions rev rd2">
+    <a href="index.html#contact" class="btn-p">⚡ Book a Discovery Call</a>
+    <a href="solutions.html" class="btn-s">Browse Solutions →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="fi">
+    <div class="ft-top">
+      <div>
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:12px">
+          <img src="logo.png" alt="GMTekAI" style="height:32px;width:32px;object-fit:contain;border-radius:5px">
+          <span style="font-family:'Unbounded',sans-serif;font-size:14px;font-weight:700;color:#e2e8f0;letter-spacing:-.5px">GM<span style="color:#22d3ee">Tek</span>AI</span>
+        </div>
+        <p class="ft-bd">Custom AI systems for local businesses, solo operators, and growing teams. Built around how you actually work. Whidbey Island, WA. Licensed &amp; Insured LLC.</p>
+        <div class="ft-sig">🦞 Built on OpenClaw · Deployed from Whidbey Island</div>
+      </div>
+      <div>
+        <div class="ft-ct">Solutions</div>
+        <ul class="ft-links">
+          <li><a href="solutions.html">AI Receptionists</a></li>
+          <li><a href="solutions.html">Workflow Automation</a></li>
+          <li><a href="local-ai.html">Local AI</a></li>
+          <li><a href="webdev.html">Websites &amp; Lead Capture</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-ct">Platform</div>
+        <ul class="ft-links">
+          <li><a href="https://github.com/GMTekAI" target="_blank">OpenClaw Framework</a></li>
+          <li><a href="local-ai.html">NemoClaw Deployments</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-ct">Contact</div>
+        <ul class="ft-links">
+          <li><a href="index.html#contact">Book a Discovery Call</a></li>
+          <li><a href="mailto:josh@gmtek.ai">josh@gmtek.ai</a></li>
+          <li><a href="index.html#contact">Get a Proposal</a></li>
+          <li><a href="https://github.com/GMTekAI" target="_blank">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <div class="ft-copy">© 2026 <span>GMTekAI</span> · Langley, WA · Licensed &amp; Insured LLC</div>
+      <div class="ft-isle">🏝️ Built on Whidbey Island, WA</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+var ro = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); } });
+}, { threshold: .1 });
+document.querySelectorAll('.rev').forEach(function(el) { ro.observe(el); });
+
+// Mobile nav
+(function(){var h=document.getElementById('nav-ham');if(h)h.addEventListener('click',function(){document.querySelector('.nav-links').classList.toggle('open');});})();
+
+// Portfolio filter
+document.querySelectorAll('.pf-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.pf-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    var filter = btn.getAttribute('data-filter');
+    document.querySelectorAll('.port-card').forEach(function(card) {
+      if (filter === 'all' || card.getAttribute('data-cat') === filter) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>

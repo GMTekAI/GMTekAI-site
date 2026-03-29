@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<!-- v2 -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Development — GMTekAI</title>
+<meta name="description" content="AI-powered web development. Business sites, lead machines, and full web applications — built fast, hosted on Cloudflare, wired to automate your sales pipeline from day one.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#020208;--bg2:#060610;--surface:#0b0c1a;--card:#0f1120;--card2:#141528;--cyan:#22d3ee;--amber:#f59e0b;--green:#34d399;--purple:#a78bfa;--red:#f87171;--orange:#fb923c;--text:#e2e8f0;--dim:#94a3b8;--muted:#475569;--border:#1e2540;--border2:#141830;--fd:'Unbounded',sans-serif;--fb:'DM Sans',sans-serif;--fm:'JetBrains Mono',monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);line-height:1.6;overflow-x:hidden}
+.noise{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;background:rgba(2,2,8,.9);backdrop-filter:blur(18px) saturate(160%);border-bottom:1px solid rgba(34,211,238,.1)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo img{height:46px;width:46px;object-fit:contain;border-radius:6px;filter:drop-shadow(0 0 8px rgba(34,211,238,.35))}
+.nav-logo-text{font-family:var(--fd);font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.5px}
+.nav-logo-text em{font-style:normal;color:var(--cyan)}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{color:var(--dim);text-decoration:none;font-size:13px;font-weight:500;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--cyan)}
+.nav-cta{background:var(--cyan)!important;color:#000!important;padding:8px 18px!important;border-radius:6px!important;font-weight:700!important;font-size:12px!important;letter-spacing:.5px!important;text-transform:uppercase!important;transition:all .2s!important}
+.nav-cta:hover{background:#38e8ff!important;transform:translateY(-1px)!important}
+.nav-ham{display:none;background:none;border:none;cursor:pointer;padding:8px;flex-direction:column;gap:5px;align-items:center;justify-content:center}
+.nav-ham span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
+@media(max-width:768px){.nav-ham{display:flex}.nav-links{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(2,2,8,.97);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);flex-direction:column;padding:16px 20px 24px;gap:4px;z-index:99}.nav-links.open{display:flex}.nav-links a{padding:10px 4px;font-size:14px;border-bottom:1px solid var(--border2)}.nav-links a:last-child{border-bottom:none;margin-top:8px}}
+section{position:relative;z-index:1}
+.si{max-width:1200px;margin:0 auto;padding:96px 48px}
+@media(max-width:768px){.si{padding:68px 20px}}
+.eye{font-family:var(--fm);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.eye::before{content:'//';opacity:.4}
+.sec-t{font-family:var(--fd);font-size:clamp(28px,3.5vw,46px);font-weight:800;line-height:1.05;letter-spacing:-1.5px;color:var(--text);margin-bottom:14px}
+.sec-d{font-size:15px;color:var(--dim);max-width:560px;line-height:1.8;font-weight:300}
+.btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--cyan);color:#000;padding:13px 26px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;border:2px solid var(--cyan);transition:all .25s;box-shadow:0 4px 24px rgba(34,211,238,.2)}
+.btn-p:hover{background:transparent;color:var(--cyan);transform:translateY(-2px)}
+.btn-s{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text);padding:13px 26px;border-radius:8px;font-weight:600;font-size:14px;text-decoration:none;border:1px solid var(--border);transition:all .25s}
+.btn-s:hover{border-color:rgba(34,211,238,.3);color:var(--cyan);background:rgba(34,211,238,.06);transform:translateY(-2px)}
+/* PAGE HERO */
+.page-hero{padding:140px 64px 80px;background:var(--bg2);border-bottom:1px solid rgba(34,211,238,.1);position:relative;overflow:hidden}
+.page-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(34,211,238,.06),transparent);pointer-events:none}
+.ph-inner{max-width:860px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.ph-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--fm);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan);border:1px solid rgba(34,211,238,.22);background:rgba(34,211,238,.07);padding:5px 14px;border-radius:20px;margin-bottom:28px}
+.bdot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:glo 2s infinite}
+@keyframes glo{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(52,211,153,.4)}50%{opacity:.6;box-shadow:0 0 0 5px rgba(52,211,153,0)}}
+.ph-h1{font-family:var(--fd);font-size:clamp(36px,5vw,68px);font-weight:900;line-height:1.0;letter-spacing:-2px;color:var(--text);margin-bottom:20px}
+.ph-h1 span{color:var(--cyan)}
+.ph-sub{font-size:clamp(14px,1.5vw,17px);color:var(--dim);font-weight:300;line-height:1.8;margin:0 auto 36px;max-width:640px}
+.ph-actions{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:32px}
+.ph-stats{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.ph-stat{font-family:var(--fm);font-size:11px;color:var(--cyan);background:rgba(34,211,238,.07);border:1px solid rgba(34,211,238,.18);padding:5px 14px;border-radius:20px}
+@media(max-width:768px){.page-hero{padding:110px 24px 60px}}
+/* SERVICE CARDS */
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+.svc-card{background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:30px;transition:all .3s;position:relative}
+.svc-card:hover{transform:translateY(-4px);border-color:rgba(34,211,238,.25);box-shadow:0 16px 48px rgba(0,0,0,.4)}
+.svc-card.featured{border-color:var(--cyan);box-shadow:0 0 0 1px rgba(34,211,238,.2),0 8px 32px rgba(34,211,238,.08)}
+.svc-feat-badge{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--cyan);color:#000;font-family:var(--fm);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:2px 13px;border-radius:11px;white-space:nowrap}
+.svc-icon{font-size:36px;margin-bottom:14px}
+.svc-name{font-family:var(--fd);font-size:17px;font-weight:800;color:var(--text);margin-bottom:6px;letter-spacing:-.4px}
+.svc-for{font-family:var(--fm);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px}
+.svc-feats{list-style:none;margin-bottom:20px}
+.svc-feats li{font-size:12px;color:var(--dim);padding:6px 0;border-bottom:1px solid var(--border2);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.svc-feats li:last-child{border-bottom:none}
+.svc-check{color:var(--green);flex-shrink:0;margin-top:1px}
+.svc-price{font-family:var(--fm);font-size:11px;color:var(--cyan);background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.2);padding:6px 12px;border-radius:6px;display:inline-block}
+@media(max-width:768px){.svc-grid{grid-template-columns:1fr}}
+/* PROCESS STEPS */
+.pipe-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:52px;position:relative}
+.pipe-steps::before{content:'';position:absolute;top:38px;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(34,211,238,.3) 20%,rgba(34,211,238,.3) 80%,transparent);z-index:0}
+.ps{padding:34px 16px 28px;text-align:center;position:relative;z-index:1}
+.ps-num-wrap{width:54px;height:54px;border-radius:50%;border:1px solid var(--border);background:var(--card);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;transition:all .3s}
+.ps:hover .ps-num-wrap{border-color:rgba(34,211,238,.5);background:rgba(34,211,238,.07);box-shadow:0 0 20px rgba(34,211,238,.15)}
+.ps-icon{font-size:22px;margin-bottom:8px}
+.ps-phase{font-family:var(--fm);font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--cyan);margin-bottom:6px;text-align:center}
+.ps-t{font-family:var(--fd);font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;letter-spacing:-.3px}
+.ps-d{font-size:12px;color:var(--dim);line-height:1.7}
+.ps-badge{display:inline-block;font-family:var(--fm);font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--cyan);background:rgba(34,211,238,.07);border:1px solid rgba(34,211,238,.18);padding:2px 8px;border-radius:4px;margin-top:10px}
+@media(max-width:1000px){.pipe-steps{grid-template-columns:1fr 1fr 1fr}.pipe-steps::before{display:none}.ps{border-bottom:1px solid var(--border2)}}
+@media(max-width:600px){.pipe-steps{grid-template-columns:1fr}}
+/* PORTFOLIO SHOWCASE */
+.port-showcase{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+.ps-card{background:var(--card);border:1px solid var(--border2);border-radius:16px;overflow:hidden;transition:all .3s}
+.ps-card:hover{transform:translateY(-4px);border-color:rgba(34,211,238,.25);box-shadow:0 16px 40px rgba(0,0,0,.4)}
+.ps-preview{height:120px;display:flex;align-items:center;justify-content:center;font-size:52px;background:linear-gradient(135deg,var(--surface),var(--card2));border-bottom:1px solid var(--border2)}
+.ps-preview img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.ps-body{padding:22px}
+.ps-type{font-family:var(--fm);font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.ps-name{font-family:var(--fd);font-size:16px;font-weight:800;color:var(--text);margin-bottom:10px;letter-spacing:-.4px}
+.ps-desc{font-size:12px;color:var(--dim);line-height:1.7;margin-bottom:14px}
+.ps-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px}
+.ps-tag{font-family:var(--fm);font-size:9px;color:var(--cyan);background:rgba(34,211,238,.07);border:1px solid rgba(34,211,238,.15);padding:2px 7px;border-radius:4px}
+.ps-status{font-family:var(--fm);font-size:9px;font-weight:700;letter-spacing:1px;background:rgba(52,211,153,.12);color:var(--green);border:1px solid rgba(52,211,153,.2);padding:2px 8px;border-radius:4px;display:inline-block;margin-bottom:14px}
+@media(max-width:900px){.port-showcase{grid-template-columns:1fr}}
+/* TECH FEATURES */
+.tech-feats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:36px}
+.tf{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:26px;transition:all .3s}
+.tf:hover{border-color:rgba(34,211,238,.25);transform:translateY(-3px)}
+.tf-icon{font-size:32px;margin-bottom:14px}
+.tf-title{font-family:var(--fd);font-size:15px;font-weight:700;color:var(--text);margin-bottom:8px;letter-spacing:-.3px}
+.tf-desc{font-size:13px;color:var(--dim);line-height:1.8}
+@media(max-width:768px){.tech-feats{grid-template-columns:1fr}}
+/* PRICING */
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:44px;align-items:start}
+.pc{background:var(--card);border:1px solid var(--border2);border-radius:18px;padding:30px;position:relative;transition:all .3s}
+.pc:hover{transform:translateY(-4px)}
+.pc.feat{border-color:var(--cyan);box-shadow:0 0 0 1px var(--cyan),0 24px 60px rgba(34,211,238,.1);transform:scale(1.02)}
+.pc.feat:hover{transform:scale(1.02) translateY(-4px)}
+.pc-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--cyan);color:#000;font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 13px;border-radius:11px;white-space:nowrap}
+.pc-n{font-family:var(--fd);font-size:18px;font-weight:700;color:var(--text);margin-bottom:4px;letter-spacing:-.5px}
+.pc-sub{font-size:11px;color:var(--muted);margin-bottom:22px;font-family:var(--fm)}
+.pc-price{font-family:var(--fd);font-size:36px;font-weight:900;color:var(--cyan);line-height:1;letter-spacing:-2px;margin-bottom:4px}
+.pc-price-note{font-size:11px;color:var(--muted);font-family:var(--fm);margin-bottom:22px}
+.pc-div{height:1px;background:var(--border2);margin-bottom:18px}
+.pc-feats{list-style:none;margin-bottom:26px}
+.pc-feats li{display:flex;align-items:flex-start;gap:9px;padding:6px 0;font-size:12px;color:var(--dim);border-bottom:1px solid rgba(20,24,48,.8)}
+.pc-feats li:last-child{border-bottom:none}
+.pck{color:var(--green);flex-shrink:0;margin-top:1px}
+.pc-btn{display:block;width:100%;text-align:center;padding:12px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;transition:all .25s}
+.pc-ol{border:1px solid var(--border);color:var(--text)}
+.pc-ol:hover{border-color:rgba(34,211,238,.3);color:var(--cyan);background:rgba(34,211,238,.06)}
+.pc-fl{background:var(--cyan);color:#000;box-shadow:0 4px 20px rgba(34,211,238,.2)}
+.pc-fl:hover{background:#38e8ff;transform:translateY(-1px)}
+@media(max-width:900px){.price-grid{grid-template-columns:1fr}.pc.feat{transform:none}}
+/* PAGE CTA */
+.page-cta{background:var(--bg2);border-top:1px solid rgba(34,211,238,.1)}
+.page-cta-inner{max-width:800px;margin:0 auto;padding:80px 48px;text-align:center}
+.page-cta-h{font-family:var(--fd);font-size:clamp(26px,3.5vw,44px);font-weight:900;line-height:1.05;letter-spacing:-1.5px;color:var(--text);margin-bottom:16px}
+.page-cta-h em{font-style:normal;color:var(--cyan)}
+.page-cta-sub{font-size:15px;color:var(--dim);line-height:1.8;font-weight:300;margin-bottom:32px}
+@media(max-width:600px){.page-cta-inner{padding:60px 20px}}
+/* FOOTER */
+footer{background:var(--bg);border-top:1px solid var(--border2);position:relative;z-index:1}
+.fi{max-width:1200px;margin:0 auto;padding:44px 48px 28px}
+.ft-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px}
+.ft-bd{font-size:12px;color:var(--muted);line-height:1.7;max-width:240px;margin-bottom:12px}
+.ft-sig{font-family:var(--fm);font-size:11px;color:var(--cyan);opacity:.6}
+.ft-ct{font-family:var(--fm);font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.ft-links{list-style:none}
+.ft-links li{margin-bottom:7px}
+.ft-links a{font-size:12px;color:var(--dim);text-decoration:none;transition:color .2s}
+.ft-links a:hover{color:var(--cyan)}
+.ft-bot{border-top:1px solid var(--border2);padding-top:22px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.ft-copy{font-size:11px;color:var(--muted);font-family:var(--fm)}
+.ft-copy span{color:var(--cyan)}
+@media(max-width:900px){.ft-top{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.fi{padding:36px 20px 22px}.ft-top{grid-template-columns:1fr}}
+.rev{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.rev.in{opacity:1;transform:translateY(0)}
+.rd1{transition-delay:.1s}.rd2{transition-delay:.2s}.rd3{transition-delay:.3s}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="GMTekAI">
+    <span class="nav-logo-text">GM<em>Tek</em>AI</span>
+  </a>
+  <button class="nav-ham" id="nav-ham" aria-label="Menu"><span></span><span></span><span></span></button>
+  <div class="nav-links">
+    <a href="solutions.html">Solutions</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="local-ai.html">Local AI</a>
+    <a href="webdev.html" class="active">Web Dev</a>
+    <a href="about.html">About</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="index.html#contact" class="nav-cta">Book a Call</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="ph-inner">
+    <div class="ph-badge">// Web Development</div>
+    <h1 class="ph-h1">Websites built to capture leads,<br><span>automate follow-up, and support your workflow.</span></h1>
+    <p class="ph-sub">We build fast custom websites, landing pages, and web applications that connect directly into your lead capture, intake, and automation systems. Your site should work for you, not just exist.</p>
+    <div class="ph-actions">
+      <a href="index.html#contact" class="btn-p">Get a Build Plan</a>
+      <a href="portfolio.html" class="btn-s">See Our Work →</a>
+    </div>
+    <div class="ph-stats">
+      <span class="ph-stat">Cloudflare Edge Hosting</span>
+      <span class="ph-stat">Lead Gen Built-In</span>
+      <span class="ph-stat">n8n Automation Stack</span>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE BUILD -->
+<section style="background:var(--bg2);border-bottom:1px solid var(--border2)">
+  <div class="si">
+    <div class="eye rev">What We Build</div>
+    <h2 class="sec-t rev">Part of the same system —<br>not a separate service.</h2>
+    <p class="sec-d rev rd1">A GMTekAI website isn't just a business card. It's the front door to your entire automation stack — lead capture triggers intake, intake triggers scheduling, scheduling triggers follow-up. Every site we build is designed around your specific business — your colors, your voice, your offers. Not a WordPress theme with your logo slapped on it.</p>
+    <div class="svc-grid rev rd2">
+      <div class="svc-card">
+        <div class="svc-icon">🏢</div>
+        <div class="svc-name">Business Presence Site</div>
+        <div class="svc-for">Local Business · Trades · Clinic · Salon</div>
+        <ul class="svc-feats">
+          <li><span class="svc-check">✓</span>Custom design + copy tailored to your business</li>
+          <li><span class="svc-check">✓</span>Mobile-first, blazing fast</li>
+          <li><span class="svc-check">✓</span>Contact form with instant owner notification</li>
+          <li><span class="svc-check">✓</span>Google Maps + reviews integration</li>
+          <li><span class="svc-check">✓</span>Cloudflare Pages hosting included</li>
+          <li><span class="svc-check">✓</span>Fast turnaround, scope-dependent</li>
+        </ul>
+        <div class="svc-price">Starting at $997 one-time</div>
+      </div>
+      <div class="svc-card featured">
+        <div class="svc-feat-badge">Most Popular</div>
+        <div class="svc-icon">🤖</div>
+        <div class="svc-name">AI Lead Machine</div>
+        <div class="svc-for">Service Business · Trades · Salon · Clinic</div>
+        <ul class="svc-feats">
+          <li><span class="svc-check">✓</span>Everything in Business Presence</li>
+          <li><span class="svc-check">✓</span>Voice AI chat widget (OpenClaw-powered)</li>
+          <li><span class="svc-check">✓</span>Lead scoring + CRM auto-entry</li>
+          <li><span class="svc-check">✓</span>SMS/email follow-up sequences</li>
+          <li><span class="svc-check">✓</span>Booking calendar integration</li>
+          <li><span class="svc-check">✓</span>Weekly lead digest to your phone</li>
+        </ul>
+        <div class="svc-price">Starting at $1,997 one-time + $97/mo</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🛒</div>
+        <div class="svc-name">E-Commerce & Booking</div>
+        <div class="svc-for">Retail · Fitness · Salon · Events</div>
+        <ul class="svc-feats">
+          <li><span class="svc-check">✓</span>Product catalog + cart + checkout</li>
+          <li><span class="svc-check">✓</span>Stripe / Square payment integration</li>
+          <li><span class="svc-check">✓</span>Booking calendar + class scheduling</li>
+          <li><span class="svc-check">✓</span>Inventory tracking + low-stock alerts</li>
+          <li><span class="svc-check">✓</span>Customer account portal</li>
+          <li><span class="svc-check">✓</span>Instant owner notification via your preferred channel</li>
+        </ul>
+        <div class="svc-price">Starting at $2,497 one-time</div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-icon">🏗️</div>
+        <div class="svc-name">Custom Web Application</div>
+        <div class="svc-for">SaaS · Tool · Portal · Dashboard</div>
+        <ul class="svc-feats">
+          <li><span class="svc-check">✓</span>Full web application (TaskHarbor-class)</li>
+          <li><span class="svc-check">✓</span>User auth + data persistence</li>
+          <li><span class="svc-check">✓</span>Stripe / payment integration</li>
+          <li><span class="svc-check">✓</span>n8n workflow backend</li>
+          <li><span class="svc-check">✓</span>API integrations (Shopify, CRMs, etc.)</li>
+          <li><span class="svc-check">✓</span>Custom design system</li>
+        </ul>
+        <div class="svc-price">Quoted per project</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section style="background:var(--bg);border-top:1px solid var(--border2)">
+  <div class="si">
+    <div class="eye rev">The Process</div>
+    <h2 class="sec-t rev">Acquire. Design.<br>Build. Launch. Grow.</h2>
+    <p class="sec-d rev rd1">Every site follows the same five-step pipeline. Most builds move quickly — timeline depends on scope and complexity.</p>
+    <div class="pipe-steps rev rd2">
+      <div class="ps">
+        <div class="ps-num-wrap"><div style="font-size:22px">🔍</div></div>
+        <div class="ps-phase">ACQUIRE</div>
+        <div class="ps-t">Review &amp; Research</div>
+        <p class="ps-d">We review your current web presence, Google listing, and market positioning. We analyze your business and competition before writing a single line.</p>
+        <div class="ps-badge">Automated</div>
+      </div>
+      <div class="ps">
+        <div class="ps-num-wrap"><div style="font-size:22px">🎨</div></div>
+        <div class="ps-phase">DESIGN</div>
+        <div class="ps-t">Direction & Copy</div>
+        <p class="ps-d">We generate your site structure, copy, and visual direction. You review and approve before we build a single component.</p>
+        <div class="ps-badge">You Approve</div>
+      </div>
+      <div class="ps">
+        <div class="ps-num-wrap"><div style="font-size:22px">⚡</div></div>
+        <div class="ps-phase">BUILD</div>
+        <div class="ps-t">Build & Wire</div>
+        <p class="ps-d">We build and wire the site using our accelerated design/build pipeline. Forms, integrations, and automations are wired in. You get a live preview link on a fast timeline.</p>
+        <div class="ps-badge">Fast Delivery</div>
+      </div>
+      <div class="ps">
+        <div class="ps-num-wrap"><div style="font-size:22px">🚀</div></div>
+        <div class="ps-phase">LAUNCH</div>
+        <div class="ps-t">Go Live</div>
+        <p class="ps-d">Deployed to Cloudflare's global edge network. Sub-second load times worldwide. SSL included. Your domain, your site.</p>
+        <div class="ps-badge">Done-for-you</div>
+      </div>
+      <div class="ps">
+        <div class="ps-num-wrap"><div style="font-size:22px">📈</div></div>
+        <div class="ps-phase">GROW</div>
+        <div class="ps-t">Automate & Scale</div>
+        <p class="ps-d">Lead capture running, follow-ups firing, analytics reporting. Your site works the full pipeline while you sleep.</p>
+        <div class="ps-badge">Ongoing</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section style="background:var(--bg2);border-top:1px solid var(--border2)">
+  <div class="si">
+    <div class="eye rev">Our Work</div>
+    <h2 class="sec-t rev">Sites We've Built.</h2>
+    <p class="sec-d rev rd1">Real sites, real businesses. From a full SaaS product to autonomous AI sales pipelines.</p>
+    <div class="port-showcase rev rd2">
+      <div class="ps-card">
+        <div class="ps-preview">🗂️</div>
+        <div class="ps-body">
+          <div class="ps-status">LIVE</div>
+          <div class="ps-type">SaaS Web Application</div>
+          <div class="ps-name">TaskHarbor</div>
+          <p class="ps-desc">A complete task management SaaS with AI-powered project assistance, Stripe payments, user auth, and a full marketing site. Built and launched in under 2 weeks.</p>
+          <div class="ps-tags"><span class="ps-tag">Cloudflare Workers</span><span class="ps-tag">n8n</span><span class="ps-tag">Stripe</span><span class="ps-tag">AI Copy</span></div>
+          <a href="https://taskharbor.org" target="_blank" class="btn-p" style="font-size:12px;padding:9px 18px">View Site →</a>
+        </div>
+      </div>
+      <div class="ps-card">
+        <div class="ps-preview">🦞</div>
+        <div class="ps-body">
+          <div class="ps-status">LIVE</div>
+          <div class="ps-type">AI Company Marketing Site</div>
+          <div class="ps-name">GMTek.ai</div>
+          <p class="ps-desc">The site you're on right now. Reviewed, custom-designed, and wired with direct lead routing. Built with the same accelerated pipeline we use for every client.</p>
+          <div class="ps-tags"><span class="ps-tag">Cloudflare Pages</span><span class="ps-tag">AI Copy</span><span class="ps-tag">Telegram Webhook</span></div>
+          <span class="btn-s" style="font-size:12px;padding:9px 18px;cursor:default;opacity:.6">You're Here 🦞</span>
+        </div>
+      </div>
+      <div class="ps-card">
+        <div class="ps-preview"><img src="screenshots/whidbey-roof.jpg" alt="Whidbey Roof & Gutter"></div>
+        <div class="ps-body">
+          <div class="ps-status">LIVE CLIENT</div>
+          <div class="ps-type">Local Service Business</div>
+          <div class="ps-name">Whidbey Roof & Gutter</div>
+          <p class="ps-desc">Full business presence site with AI receptionist integration. Voice agent answers every call, captures leads, and routes them instantly to the owner. Zero missed calls since launch.</p>
+          <div class="ps-tags"><span class="ps-tag">Cloudflare Pages</span><span class="ps-tag">Vapi Voice AI</span><span class="ps-tag">Instant Lead Routing</span><span class="ps-tag">Lead Capture</span></div>
+          <a href="portfolio.html" class="btn-s" style="font-size:12px;padding:9px 18px">View Portfolio →</a>
+        </div>
+      </div>
+      <div class="ps-card">
+        <div class="ps-preview">🎨</div>
+        <div class="ps-body">
+          <div class="ps-status">DEMO</div>
+          <div class="ps-type">Local Contractor — Web Dev</div>
+          <div class="ps-name">Dow's Painting</div>
+          <p class="ps-desc">Full 6-page redesign for a Whidbey Island family painting contractor. Trust-first layout, complete services detail, webhook-ready estimate form, local SEO schema, and gallery with lightbox — zero dependencies.</p>
+          <div class="ps-tags"><span class="ps-tag">Static HTML/CSS/JS</span><span class="ps-tag">Webhook-ready Form</span><span class="ps-tag">Local SEO Schema</span><span class="ps-tag">Whidbey Island</span></div>
+          <a href="https://preview-dows-painting.gmtek.ai" target="_blank" class="btn-p" style="font-size:12px;padding:9px 18px">View Demo →</a>
+        </div>
+      </div>
+      <div class="ps-card">
+        <div class="ps-preview"><img src="screenshots/sound-construction.jpg" alt="Sound Construction"></div>
+        <div class="ps-body">
+          <div class="ps-status">DEMO</div>
+          <div class="ps-type">General Contractor — South Whidbey</div>
+          <div class="ps-name">Sound Construction LLC</div>
+          <p class="ps-desc">Award-winning custom home builder with a Fine Home Building national award buried in a 2018 Wix site. Conversion-focused rebuild with animated hero, project portfolio, and budget pre-qualification intake form.</p>
+          <div class="ps-tags"><span class="ps-tag">GSAP Animations</span><span class="ps-tag">Lead Intake</span><span class="ps-tag">FireCrawl Intel</span><span class="ps-tag">Cloudflare Workers</span></div>
+          <a href="https://sound-construction.gmtek.ai" target="_blank" class="btn-p" style="font-size:12px;padding:9px 18px">View Demo →</a>
+        </div>
+      </div>
+      <div class="ps-card">
+        <div class="ps-preview"><img src="screenshots/daniel-fouts.jpg" alt="Daniel Fouts"></div>
+        <div class="ps-body">
+          <div class="ps-status">DEMO</div>
+          <div class="ps-type">Real Estate — South Whidbey Island</div>
+          <div class="ps-name">Daniel Fouts</div>
+          <p class="ps-desc">Editorial luxury real estate site for a 20-year South Whidbey agent. Split hero, animated market stats ticker, dual buyer/seller intake form, and featured listings mosaic. Cormorant Garant + gold palette.</p>
+          <div class="ps-tags"><span class="ps-tag">GSAP Animations</span><span class="ps-tag">Lead Intake</span><span class="ps-tag">Cloudflare Workers</span></div>
+          <a href="https://daniel-fouts.gmtek.ai" target="_blank" class="btn-p" style="font-size:12px;padding:9px 18px">View Demo →</a>
+        </div>
+      </div>
+      <div class="ps-card">
+        <div class="ps-preview"><img src="screenshots/dean-workman.jpg" alt="Dean Workman"></div>
+        <div class="ps-body">
+          <div class="ps-status">DEMO</div>
+          <div class="ps-type">Real Estate — Whidbey Island</div>
+          <div class="ps-name">Dean Workman</div>
+          <p class="ps-desc">Dark immersive real estate site. Forest + copper palette, floating agent card hero, 6-listing grid, and a 4-column testimonial section. Built to showcase local knowledge over corporate IDX templates.</p>
+          <div class="ps-tags"><span class="ps-tag">GSAP Animations</span><span class="ps-tag">Testimonials</span><span class="ps-tag">Cloudflare Workers</span></div>
+          <a href="https://dean-workman.gmtek.ai" target="_blank" class="btn-p" style="font-size:12px;padding:9px 18px">View Demo →</a>
+        </div>
+      </div>
+      <div class="ps-card">
+        <div class="ps-preview"><img src="screenshots/lisa-leonard.jpg" alt="Lisa Leonard"></div>
+        <div class="ps-body">
+          <div class="ps-status">DEMO</div>
+          <div class="ps-type">Real Estate — Keller Williams Whidbey</div>
+          <div class="ps-name">Lisa Leonard</div>
+          <p class="ps-desc">Bright, community-first KW site. Fraunces + Jost, terracotta + navy. 6-neighborhood community band, asymmetric mosaic listings grid, and home valuation CTA — built to stand out from 50,000 identical KW templates.</p>
+          <div class="ps-tags"><span class="ps-tag">GSAP Animations</span><span class="ps-tag">Community Focus</span><span class="ps-tag">Cloudflare Workers</span></div>
+          <a href="https://lisa-leonard.gmtek.ai" target="_blank" class="btn-p" style="font-size:12px;padding:9px 18px">View Demo →</a>
+        </div>
+      </div>
+      <div class="ps-card">
+        <div class="ps-preview"><img src="screenshots/sw-woodworks.jpg" alt="SW Woodworks"></div>
+        <div class="ps-body">
+          <div class="ps-status">DEMO</div>
+          <div class="ps-type">Custom Furniture &amp; Cabinetry — Whidbey Island</div>
+          <div class="ps-name">South Whidbey Wood Works</div>
+          <p class="ps-desc">7× Houzz Best of Design winner with 1,000+ Ideabook saves — none of it on his website. Artisanal luxury site with Houzz award badges overlaid on the hero, masonry portfolio grid, and a commission inquiry form.</p>
+          <div class="ps-tags"><span class="ps-tag">Portfolio Grid</span><span class="ps-tag">Houzz Intel</span><span class="ps-tag">GSAP Animations</span><span class="ps-tag">Cloudflare Workers</span></div>
+          <a href="https://sw-woodworks.gmtek.ai" target="_blank" class="btn-p" style="font-size:12px;padding:9px 18px">View Demo →</a>
+        </div>
+      </div>
+      <div class="ps-card">
+        <div class="ps-preview"><img src="screenshots/the-braeburn.jpg" alt="The Braeburn"></div>
+        <div class="ps-body">
+          <div class="ps-status">DEMO</div>
+          <div class="ps-type">Restaurant &amp; Bar — Langley, WA</div>
+          <div class="ps-name">The Braeburn</div>
+          <p class="ps-desc">Full-bleed food photo hero with floating hours card, nav color transition on scroll, menu tease section, sister location cross-promo, and a private events inquiry form. Built to match the actual Braeburn atmosphere.</p>
+          <div class="ps-tags"><span class="ps-tag">Restaurant Design</span><span class="ps-tag">Events Form</span><span class="ps-tag">GSAP</span><span class="ps-tag">Cloudflare Workers</span></div>
+          <a href="https://the-braeburn.gmtek.ai" target="_blank" class="btn-p" style="font-size:12px;padding:9px 18px">View Demo →</a>
+        </div>
+      </div>
+      <div class="ps-card">
+        <div class="ps-preview"><img src="screenshots/pickles-deli.jpg" alt="Pickles Deli"></div>
+        <div class="ps-body">
+          <div class="ps-status">DEMO</div>
+          <div class="ps-type">Deli &amp; Sandwich Shop — Clinton, WA</div>
+          <div class="ps-name">Pickles Deli</div>
+          <p class="ps-desc">First website for this ferry-town staple, plus a working AI Specials Agent. Claude Haiku suggests daily specials from inventory, generates punny names, and logs history — all browser-based, zero backend required.</p>
+          <div class="ps-tags"><span class="ps-tag">Claude AI Agent</span><span class="ps-tag">Specials Tool</span><span class="ps-tag">GSAP</span><span class="ps-tag">Cloudflare Workers</span></div>
+          <a href="https://pickles-deli.gmtek.ai" target="_blank" class="btn-p" style="font-size:12px;padding:9px 18px">View Demo →</a>
+        </div>
+      </div>
+      <div class="ps-card">
+        <div class="ps-preview"><img src="screenshots/jangaard-clinic.jpg" alt="Jangaard Clinic"></div>
+        <div class="ps-body">
+          <div class="ps-status">DEMO</div>
+          <div class="ps-type">Naturopathic Clinic — Freeland, Whidbey Island</div>
+          <div class="ps-name">Jangaard Clinic</div>
+          <p class="ps-desc">Est. 1977. Two Naturopathic Doctors, a Wix site that doesn't come close to matching their 47 years of healing credibility. Rebuilt with real doctor photos, real testimonials, three-discipline pillars, and a new patient intake form.</p>
+          <div class="ps-tags"><span class="ps-tag">Playfair Display</span><span class="ps-tag">Patient Intake</span><span class="ps-tag">GSAP</span><span class="ps-tag">Cloudflare Workers</span></div>
+          <a href="https://jangaard-clinic.gmtek.ai" target="_blank" class="btn-p" style="font-size:12px;padding:9px 18px">View Demo →</a>
+        </div>
+      </div>
+      <div class="ps-card">
+        <div class="ps-preview"><img src="screenshots/pilates-collective.jpg" alt="Pilates Collective"></div>
+        <div class="ps-body">
+          <div class="ps-status">DEMO</div>
+          <div class="ps-type">Reformer Pilates Studio — Whidbey Island</div>
+          <div class="ps-name">Pilates Collective</div>
+          <p class="ps-desc">"A Premier Boutique Studio Experience — No Ferry Required." Group classes, private sessions, Pilates parties, and teacher training. Rebuilt to match their fun, community-forward brand voice with real studio photos throughout.</p>
+          <div class="ps-tags"><span class="ps-tag">Fraunces + DM Sans</span><span class="ps-tag">Booking Form</span><span class="ps-tag">GSAP</span><span class="ps-tag">Cloudflare Workers</span></div>
+          <a href="https://pilates-collective.gmtek.ai" target="_blank" class="btn-p" style="font-size:12px;padding:9px 18px">View Demo →</a>
+        </div>
+      </div>
+      <div class="ps-card">
+        <div class="ps-preview"><img src="screenshots/lino-guidero.jpg" alt="Lino Guidero"></div>
+        <div class="ps-body">
+          <div class="ps-status">DEMO</div>
+          <div class="ps-type">Luxury Real Estate — Realogics Sotheby's, Seattle</div>
+          <div class="ps-name">Lino Guidero</div>
+          <p class="ps-desc">20 years luxury real estate. Whidbey Island native. Bilingual. BFA from UW. The story of who Lino is gets buried on his current sites. This demo leads with it — Cormorant Garant, obsidian + gold, full luxury brand presence.</p>
+          <div class="ps-tags"><span class="ps-tag">Cormorant Garant</span><span class="ps-tag">Luxury Design</span><span class="ps-tag">GSAP</span><span class="ps-tag">Cloudflare Workers</span></div>
+          <a href="https://lino-guidero.gmtek.ai" target="_blank" class="btn-p" style="font-size:12px;padding:9px 18px">View Demo →</a>
+        </div>
+      </div>
+      <div class="ps-card">
+        <div class="ps-preview"><img src="screenshots/cantrell-motorsports.jpg" alt="Cantrell Motorsports"></div>
+        <div class="ps-body">
+          <div class="ps-status">DEMO</div>
+          <div class="ps-type">European Auto Repair + Performance — Bellevue, WA</div>
+          <div class="ps-name">Cantrell Motorsports</div>
+          <p class="ps-desc">Porsche specialist, custom fabricator, authorized performance parts dealer — with a WordPress site that looks like every other shop. Rebuilt dark and aggressive: carbon + electric orange, 10-service grid, track setup section, real shop photos.</p>
+          <div class="ps-tags"><span class="ps-tag">Oswald + Work Sans</span><span class="ps-tag">Service Grid</span><span class="ps-tag">GSAP</span><span class="ps-tag">Cloudflare Workers</span></div>
+          <a href="https://cantrell-motorsports.gmtek.ai" target="_blank" class="btn-p" style="font-size:12px;padding:9px 18px">View Demo →</a>
+        </div>
+      </div>
+      <div class="ps-card">
+        <div class="ps-preview"><img src="screenshots/hein-marine.jpg" alt="Hein Marine"></div>
+        <div class="ps-body">
+          <div class="ps-status">DEMO</div>
+          <div class="ps-type">Authorized Honda Marine Dealer — Langley, WA</div>
+          <div class="ps-name">Hein Marine</div>
+          <p class="ps-desc">40-year Whidbey Island marine specialist and authorized Honda Marine dealer. Deep navy + Honda red, full BF series lineup with official Honda product photography, 6-service grid, and mobile service emphasis.</p>
+          <div class="ps-tags"><span class="ps-tag">Barlow Condensed</span><span class="ps-tag">Honda CDN Photos</span><span class="ps-tag">Marine Dealer</span><span class="ps-tag">Cloudflare Workers</span></div>
+          <a href="https://hein-marine.gmtek.ai" target="_blank" class="btn-p" style="font-size:12px;padding:9px 18px">View Demo →</a>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:28px">
+      <a href="portfolio.html" class="btn-s">View All Client Work →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TECH -->
+<section style="background:var(--bg);border-top:1px solid var(--border2)">
+  <div class="si">
+    <div class="eye rev">Under The Hood</div>
+    <h2 class="sec-t rev">Built on reliable, owner-controlled infrastructure.</h2>
+    <p class="sec-d rev rd1">Every site we build is hosted on Cloudflare's global edge network. Your lead data goes to your phone — not our servers. No lock-in. No monthly platform fees beyond what you choose.</p>
+    <div class="tech-feats rev rd2">
+      <div class="tf">
+        <div class="tf-icon">☁️</div>
+        <div class="tf-title">Cloudflare Edge Hosting</div>
+        <p class="tf-desc">Sub-second load times from anywhere on Earth. Free SSL. DDoS protection built in. Global CDN. This is enterprise-grade hosting at zero ongoing cost — no monthly hosting bill.</p>
+      </div>
+      <div class="tf">
+        <div class="tf-icon">🔔</div>
+        <div class="tf-title">Instant Lead Routing</div>
+        <p class="tf-desc">Every form submission routes directly to the right person the moment it hits — no checking email, no CRM to log into. Delivered via your preferred channel (Telegram, SMS, email, or Slack).</p>
+      </div>
+      <div class="tf">
+        <div class="tf-icon">🤖</div>
+        <div class="tf-title">AI-Wired From Day One</div>
+        <p class="tf-desc">Chat widgets, voice agents, automated follow-up sequences — all optional, all available. For clients who want full sovereignty, every automation runs on your own hardware.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section style="background:var(--bg2);border-top:1px solid var(--border2)">
+  <div class="si">
+    <div class="eye rev">What It Costs</div>
+    <h2 class="sec-t rev">Straight Pricing.<br>No Surprises.</h2>
+    <p class="sec-d rev rd1">We quote every project individually based on scope, but here's the range. No monthly platform fees buried in the fine print. You pay once, you own it.</p>
+    <div class="price-grid rev rd2">
+      <div class="pc">
+        <div class="pc-n">Starter Site</div>
+        <div class="pc-sub">LOCAL BUSINESS · TRADES · CLINIC</div>
+        <div class="pc-price">$997</div>
+        <div class="pc-price-note">One-time build fee</div>
+        <div class="pc-div"></div>
+        <ul class="pc-feats">
+          <li><span class="pck">✓</span>Custom design + copy tailored to your business</li>
+          <li><span class="pck">✓</span>Mobile-first, globally fast</li>
+          <li><span class="pck">✓</span>Contact form with instant owner notification</li>
+          <li><span class="pck">✓</span>Google Maps + reviews embed</li>
+          <li><span class="pck">✓</span>Cloudflare Pages hosting</li>
+          <li><span class="pck">✓</span>1 revision round included</li>
+          <li><span class="pck">✓</span>Fast turnaround, scope-dependent</li>
+        </ul>
+        <a href="index.html#contact" class="pc-btn pc-ol">Book a Discovery Call</a>
+      </div>
+      <div class="pc feat">
+        <div class="pc-badge">Most Popular</div>
+        <div class="pc-n">AI Lead Machine</div>
+        <div class="pc-sub">SERVICE BUSINESS · TRADES · SALON</div>
+        <div class="pc-price">$1,997</div>
+        <div class="pc-price-note">One-time + $97/mo automation</div>
+        <div class="pc-div"></div>
+        <ul class="pc-feats">
+          <li><span class="pck">✓</span>Everything in Starter</li>
+          <li><span class="pck">✓</span>Voice AI chat widget</li>
+          <li><span class="pck">✓</span>Lead scoring + CRM auto-entry</li>
+          <li><span class="pck">✓</span>SMS/email follow-up sequences</li>
+          <li><span class="pck">✓</span>Booking calendar integration</li>
+          <li><span class="pck">✓</span>Weekly lead digest to your phone</li>
+          <li><span class="pck">✓</span>Ongoing support available</li>
+        </ul>
+        <a href="index.html#contact" class="pc-btn pc-fl">Book a Discovery Call</a>
+      </div>
+      <div class="pc">
+        <div class="pc-n">Custom Application</div>
+        <div class="pc-sub">SAAS · TOOL · PORTAL · DASHBOARD</div>
+        <div class="pc-price" style="font-size:24px;letter-spacing:-1px">Quoted</div>
+        <div class="pc-price-note">Per project — typically $3K–$10K+</div>
+        <div class="pc-div"></div>
+        <ul class="pc-feats">
+          <li><span class="pck">✓</span>Full web application</li>
+          <li><span class="pck">✓</span>User auth + data persistence</li>
+          <li><span class="pck">✓</span>Stripe / payment integration</li>
+          <li><span class="pck">✓</span>n8n workflow backend</li>
+          <li><span class="pck">✓</span>API integrations</li>
+          <li><span class="pck">✓</span>Custom design system</li>
+          <li><span class="pck">✓</span>Timeline: 2–4 weeks</li>
+        </ul>
+        <a href="index.html#contact" class="pc-btn pc-ol">Book a Discovery Call</a>
+      </div>
+    </div>
+    <p style="text-align:center;font-family:var(--fm);font-size:12px;color:var(--muted);margin-top:28px">Hosting is free (Cloudflare Pages) or ~$5/mo VPS. No ongoing platform lock-in. You own the code.</p>
+    <p style="text-align:center;font-size:13px;color:var(--dim);margin-top:16px;max-width:640px;margin-left:auto;margin-right:auto;line-height:1.8">Every site we build can be wired directly into your n8n automation stack — so a form submission triggers a CRM entry, a notification, and a follow-up sequence automatically.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="page-cta">
+  <div class="page-cta-inner">
+    <div class="eye rev" style="justify-content:center">// Let's Build</div>
+    <h2 class="page-cta-h rev">Your site.<br><em>Wired to work from day one.</em></h2>
+    <p class="page-cta-sub rev rd1">Tell us about your business and we'll have a design direction and build plan back to you fast. No templates. No cookie-cutter. Built from scratch around how you actually work.</p>
+    <p class="page-cta-sub rev rd1" style="margin-top:-16px;margin-bottom:32px;font-size:13px">Every site we build can be wired directly into your n8n automation stack — so a form submission triggers a CRM entry, a notification, and a follow-up sequence automatically.</p>
+    <div class="rev rd2" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="index.html#contact" class="btn-p">Get a Build Plan</a>
+      <a href="portfolio.html" class="btn-s">View Portfolio →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fi">
+    <div class="ft-top">
+      <div>
+        <div style="display:flex;align-items:center;gap:9px;margin-bottom:12px">
+          <img src="logo.png" alt="GMTekAI" style="height:32px;width:32px;object-fit:contain;border-radius:5px">
+          <span style="font-family:'Unbounded',sans-serif;font-size:14px;font-weight:700;color:#e2e8f0;letter-spacing:-.5px">GM<span style="color:#22d3ee">Tek</span>AI</span>
+        </div>
+        <p class="ft-bd">Custom AI systems for local businesses, solo operators, and growing teams. Built around how you actually work. Whidbey Island, WA. Licensed &amp; Insured LLC.</p>
+        <div class="ft-sig">🦞 Built on OpenClaw · Deployed from Whidbey Island</div>
+      </div>
+      <div>
+        <div class="ft-ct">Solutions</div>
+        <ul class="ft-links">
+          <li><a href="solutions.html">AI Receptionists</a></li>
+          <li><a href="solutions.html">Workflow Automation</a></li>
+          <li><a href="local-ai.html">Local AI</a></li>
+          <li><a href="webdev.html">Websites &amp; Lead Capture</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-ct">Platform</div>
+        <ul class="ft-links">
+          <li><a href="https://github.com/GMTekAI" target="_blank">OpenClaw Framework</a></li>
+          <li><a href="local-ai.html">NemoClaw Deployments</a></li>
+          <li><a href="portfolio.html">Portfolio</a></li>
+          <li><a href="about.html">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="ft-ct">Contact</div>
+        <ul class="ft-links">
+          <li><a href="index.html#contact">Book a Discovery Call</a></li>
+          <li><a href="mailto:josh@gmtek.ai">josh@gmtek.ai</a></li>
+          <li><a href="index.html#contact">Get a Proposal</a></li>
+          <li><a href="https://github.com/GMTekAI" target="_blank">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="ft-bot">
+      <div class="ft-copy">© 2026 <span>GMTekAI</span> · Langley, WA · Licensed &amp; Insured LLC</div>
+      <div class="ft-isle">🏝️ Built on Whidbey Island, WA</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+var ro=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target);}});},{threshold:.1});
+document.querySelectorAll('.rev').forEach(function(el){ro.observe(el);});
+// Mobile nav
+(function(){var h=document.getElementById('nav-ham');if(h)h.addEventListener('click',function(){document.querySelector('.nav-links').classList.toggle('open');});})();
+</script>
+</body>
+</html>
